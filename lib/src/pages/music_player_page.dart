@@ -103,7 +103,7 @@ class _TituloPlayState extends State<TituloPlay>
   void open() {
     final audioPlayerModel =
         Provider.of<AudioPlayerModel>(context, listen: false);
-    assetAudioPlayer.open(Audio('assets/Polish Cow.mp3'));
+    assetAudioPlayer.open(Audio('assets/Polish-Cow.mp3'));
 
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.current = duration;
@@ -202,11 +202,14 @@ class BarraProgreso extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final estilo = TextStyle(color: Colors.white.withOpacity(0.4));
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+    final porcentaje = audioPlayerModel.porcentaje;
+
     return Container(
       child: Column(
         children: [
           Text(
-            '00:00',
+            '${audioPlayerModel.songTotalDuration}',
             style: estilo,
           ),
           SizedBox(
@@ -223,7 +226,7 @@ class BarraProgreso extends StatelessWidget {
                 bottom: 0,
                 child: Container(
                   width: 3,
-                  height: 150,
+                  height: 230 * porcentaje,
                   color: Colors.white.withOpacity(0.8),
                 ),
               ),
@@ -233,7 +236,7 @@ class BarraProgreso extends StatelessWidget {
             height: 10,
           ),
           Text(
-            '00:00',
+            '${audioPlayerModel.currentSecond}',
             style: estilo,
           ),
         ],
